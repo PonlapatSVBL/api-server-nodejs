@@ -5,11 +5,17 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { connection } = require('./config/connector');
 
+const https = require('https');
 
 // ตั้งค่าให้ Express รับรูปแบบ JSON
 // app.use(express.json());
 
 app.use(bodyParser.raw({ type: 'application/json' }));
+
+/* const sslServer = https.createServer({
+    key: fs.readFileSync(path.join(__dirname, '../cert', 'client-key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, '../cert', 'server-ca.pem')),
+}, app) */
 
 app.get('/', (req, res) => {
     let body = JSON.parse(req.body);
