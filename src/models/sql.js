@@ -1,5 +1,18 @@
 // const sequelize = require('sequelize');
 const { connection } = require('../config/connector');
+
+exports.execute_query = (sql) => {
+    return new Promise((resolve, reject) => {
+        connection.query(sql, async (error, results, fields) => {
+            if (error) {
+                reject(error);
+            } else {
+                console.log(results);
+                resolve(results);
+            }
+        });
+    })
+}
 exports.find = (Model, cluase) => {
     return Model.findOne({ where: cluase })
 
@@ -22,7 +35,18 @@ exports.findRaw = (sql) => {
     }); */
 }
 exports.inSertRaw = (sql) => {
-    return connection.query(sql, { type: sequelize.QueryTypes.INSERT });
+    // return connection.query(sql, { type: sequelize.QueryTypes.INSERT });
+
+    return new Promise((resolve, reject) => {
+        connection.query(sql, async (error, results, fields) => {
+            if (error) {
+                reject(error);
+            } else {
+                console.log(results);
+                resolve(results);
+            }
+        })
+    })
 }
 exports.updateRaw = (sql) => {
     return connection.query(sql, { type: sequelize.QueryTypes.UPDATE });
