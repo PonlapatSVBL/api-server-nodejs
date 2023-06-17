@@ -7,7 +7,7 @@ const { connection } = require('./config/connector');
 
 app.use(bodyParser.raw({ type: 'application/json' }));
 
-app.get('/', (req, res) => {
+app.get('/rabbit-dev/api', (req, res) => {
     if (req.body) {
         let body = JSON.parse(req.body);
         // console.log(body);
@@ -24,11 +24,11 @@ app.get('/', (req, res) => {
     }
 });
 
-app.post('/', (req, res) => {
+app.post('/rabbit-dev/api', (req, res) => {
     if (req.body) {
         let body = JSON.parse(req.body);
         const apiPath = path.join(__dirname, 'modules', body.compgrp, body.comp, `${body.action}.js`);
-        
+
         try {
             const api = require(apiPath);
             api(req, res);
