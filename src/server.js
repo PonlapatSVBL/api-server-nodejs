@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
 const { connection } = require('./config/connector');
 
+app.use(cors());
 app.use(bodyParser.raw({ type: 'application/json' }));
 
 app.get('/rabbit-dev/api', (req, res) => {
